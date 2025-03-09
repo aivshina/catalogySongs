@@ -2,7 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\GenreController;
+use App\Http\Controllers\SingerController;
+use App\Http\Controllers\SongController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,3 +19,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::get('/singers', [SingerController::class, 'getAllSingers']);
+Route::get('/genres', [GenreController::class, 'getAllGenres']);
+Route::get('/songs', [SongController::class, 'getAllSongs']);
+
+Route::post('/saveSinger', [SingerController::class,'saveSinger']);
+Route::post('/saveSong', [SongController::class, 'saveSong']);
