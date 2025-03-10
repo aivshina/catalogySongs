@@ -43,7 +43,6 @@ export default {
             .get('api/genre')
             .then(response => {
                 this.genres = response.data;
-                console.log('genres', this.genres)
             });
     },
     methods: {

@@ -26,6 +26,4 @@ const router = createRouter({
     history: createWebHistory()
 })
 
-createApp(App).use(router).mount("#app")
-
-Vue.component('v-select', vSelect)
+createApp(App).use(router).component('v-select', vSelect).mount("#app")
