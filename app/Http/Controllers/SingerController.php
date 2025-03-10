@@ -8,11 +8,11 @@ use Illuminate\Http\Request;
 
 class SingerController extends Controller
 {
-    public function getAllSingers(){
+    public function index(){
         return Singer::with('genre')->get();
     }
 
-    public function saveSinger (Request $request){
+    public function store (Request $request){
 
         $singer = new Singer();
         $singer->name = $request->get('name');

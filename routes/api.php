@@ -19,9 +19,11 @@ use App\Http\Controllers\SongController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('/singers', [SingerController::class, 'getAllSingers']);
-Route::get('/genres', [GenreController::class, 'getAllGenres']);
-Route::get('/songs', [SongController::class, 'getAllSongs']);
 
-Route::post('/saveSinger', [SingerController::class,'saveSinger']);
-Route::post('/saveSong', [SongController::class, 'saveSong']);
+Route::get('/genre', [GenreController::class, 'index']);
+
+Route::get('/singers', [SingerController::class, 'index']);
+Route::post('/singers', [SingerController::class,'store']);
+
+Route::get('/songs', [SongController::class, 'index']);
+Route::post('/songs', [SongController::class, 'store']);

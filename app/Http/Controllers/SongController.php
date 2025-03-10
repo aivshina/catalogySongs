@@ -9,13 +9,13 @@ use Illuminate\Http\Request;
 
 class SongController extends Controller
 {
-    public function getAllSongs(){
+    public function index(){
         $songs = Song::with('singerSong','singerSong.singer')->get();
 
         return $songs;
     }
 
-    public function saveSong(Request $request){
+    public function store(Request $request){
 
         $song = new Song();
         $song->name = $request->get('name');
