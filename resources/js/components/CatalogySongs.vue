@@ -1,18 +1,24 @@
 <template>
     <h1>Каталог песен</h1>
-    <div v-for="song in songs">
-        <template v-if="song.singer_song.length > 1">
-            <template  v-for="singer in song.singer_song">
-                {{singer.singer.name}}
-                <template v-if="song.singer_song.indexOf(singer) < song.singer_song.length-1">&</template>
+    <template v-if="songs.length > 0">
+        <div v-for="song in songs">
+            <template v-if="song.singer_song.length > 1">
+                <template  v-for="singer in song.singer_song">
+                    {{singer.singer.name}}
+                    <template v-if="song.singer_song.indexOf(singer) < song.singer_song.length-1">&</template>
+                </template>
             </template>
-        </template>
-        <template v-else>
-            {{song.singer_song[0].singer.name}}
-        </template>
+            <template v-else>
+                {{song.singer_song[0].singer.name}}
+            </template>
 
-        - {{song.name}}
-    </div>
+            - {{song.name}}
+        </div>
+    </template>
+    <template v-else>
+        <div>Список песен пуст</div>
+    </template>
+
 
     <div class="add-items">
         Название:
@@ -43,8 +49,8 @@
             </template>
         </v-select>
 
-        <div v-if="errors.length > 0" style="color: red">{{errors[0]}}</div>
         <button @click="save()">Добавить</button>
+        <div v-if="errors.length > 0" style="color: red">{{errors[0]}}</div>
     </div>
 </template>
 
@@ -102,7 +108,7 @@ export default {
 
             let vm = this;
 
-            axios.post('api/saveSong', data).then((response) => {
+            axios.post('api/songs', data).then((response) => {
                 if (response.data.status) {
                     vm.getSongs();
                     vm.songName = '';

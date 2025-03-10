@@ -1,9 +1,15 @@
 <template>
 
     <h1>Каталог исполнителей</h1>
-    <div v-for="singer in singers">
-        {{singer.name}} | {{singer.genre.name}}
-    </div>
+    <template v-if="singers.length > 0">
+        <div v-for="singer in singers">
+            {{singer.name}} | {{singer.genre.name}}
+        </div>
+    </template>
+    <template v-else>
+        <div>Список исполнителей пуст</div>
+    </template>
+
 
     <div class="add-items">
         Исполнитель:
@@ -12,8 +18,8 @@
         <select v-model="selectedGenres">
             <option v-for="genre in genres" :value="genre.id">{{genre.name}}</option>
         </select>
-        <div v-if="errors.length > 0" style="color: red">{{errors[0]}}</div>
         <button @click="save()">Добавить</button>
+        <div v-if="errors.length > 0" style="color: red">{{errors[0]}}</div>
     </div>
 
 </template>
@@ -34,7 +40,7 @@ export default {
         this.getSingers()
 
         window.axios
-            .get('api/genres')
+            .get('api/genre')
             .then(response => {
                 this.genres = response.data;
                 console.log('genres', this.genres)
@@ -63,7 +69,7 @@ export default {
                 genre_id: this.selectedGenres
             }
             let vm = this;
-            axios.post('api/saveSinger', data).then((response) => {
+            axios.post('api/singers', data).then((response) => {
                 if (response.data.status) {
                     vm.getSingers();
                     vm.singer = '';
